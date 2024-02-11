@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button"
 
-export default function Home() {
+const DashboardPage = () =>  {
   return (
     <div>
-      <p className="text-6xl text-orange-500">hello sass ai platform </p>
+      <p className="">DashboardPage (protected)</p>
       <Button size="lg">Button</Button>
     </div>
   )
 }
+
+export default DashboardPage

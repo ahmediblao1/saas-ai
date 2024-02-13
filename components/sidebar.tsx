@@ -1,9 +1,12 @@
 "use client"
+
 import { cn } from '@/lib/utils'
 import { Code, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, Settings, VideoIcon } from 'lucide-react'
 import { Montserrat } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import path from 'path'
 
 const montserrat = Montserrat(
     { weight: '600',
@@ -57,6 +60,7 @@ const routes = [
 
 
 const Sidebar = () => {
+    const pathname = usePathname()
     return (
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
            <div className="px-3 py-2 flex-1">
@@ -71,7 +75,9 @@ const Sidebar = () => {
                 <Link
                  href={route.href}
                 key={index}
-                className={cn("flex items-center px-3 py-2 rounded-md", "hover:bg-[#1F2937]")}
+                className={cn("flex items-center cursor-pointer px-3 py-2 rounded-md", "hover:bg-[#1F2937]",
+                pathname === route.href ? "text-white bg-[#1F2937] " : "text-gray-300"
+                )}
                 >
                 <div className='flex items-center flex-1'>
                 {<route.icon className={cn("h-5 w-5 mr-3", route.color)} />}

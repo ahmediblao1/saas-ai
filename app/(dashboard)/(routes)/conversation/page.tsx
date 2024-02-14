@@ -1,8 +1,9 @@
+import { Heading } from "@/components/heading";
 
 const ConversationPage = () => {
     return (
         <div>
-        <h1>Conversation Page</h1>
+            <Heading />
         </div>
     );
     }

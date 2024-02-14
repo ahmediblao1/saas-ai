@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { formSchema } from "./constants"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 
 const ConversationPage = () => {
@@ -56,20 +57,19 @@ const ConversationPage = () => {
                         render={({ field }) => (
                             <FormItem className="col-span-12 lg:col-span-10 ">
                                 <FormControl className="m-0 p-0">
-                                    <label htmlFor="prompt" className="text-sm font-semibold text-muted-foreground">Prompt</label>
-                                    <textarea
-                                    {...field}
-                                    className="w-full p-2 mt-1 text-sm border rounded-md focus:outline-none focus:ring focus:ring-violet-500"
-                                    />
+                                    <Input
+                                    className="border-0 outline-none focus-visible:ring-0
+                                     focus-visible:ring-transparent"
+                                     disabled={isloading}
+                                     placeholder="how i can make extra 300$ in a day"
+                                     {...field}
+                                     />
                                 </FormControl>
                             </FormItem>
                         )}
                         />
-
                         </form>
-
                     </Form>
-
                 </div>
 
             </div>

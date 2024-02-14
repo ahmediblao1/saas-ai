@@ -1,3 +1,10 @@
+import { LucideIcon } from "lucide-react";
+
+interface HeadingProps {
+    title: string;
+    description: string;
+    icon: LucideIcon;
+}
 
 export const Heading = () => {
     return (

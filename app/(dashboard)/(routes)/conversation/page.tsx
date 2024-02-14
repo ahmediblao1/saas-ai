@@ -8,6 +8,7 @@ import { formSchema } from "./constants"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 
 const ConversationPage = () => {
@@ -48,7 +49,8 @@ const ConversationPage = () => {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="
                         rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm
-                        grid grid-colss-12 
+                        grid
+                        grid-cols-12 
                         gap-2
                         "
                         >
@@ -68,10 +70,21 @@ const ConversationPage = () => {
                             </FormItem>
                         )}
                         />
+                        <Button 
+                        className="col-span-12 lg:col-span-2 w-full"
+                        disabled={isloading}
+                        >
+                            Generate
+                        </Button>
                         </form>
                     </Form>
                 </div>
-
+                <div className="space-y-4 mt-4">
+                    <h3 className="text-lg font-bold">Results</h3>
+                    <div className="bg-gray-100 p-4 rounded-lg">
+                        <p>Results will be shown here</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

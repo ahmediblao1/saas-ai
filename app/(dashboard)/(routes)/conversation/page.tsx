@@ -1,5 +1,5 @@
 "use client"
-
+import axios from "axios";
 import * as z from "zod"
 import { Heading } from "@/components/heading";
 import { MessageSquare } from "lucide-react";
@@ -9,10 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import OpenAI from "openai";
 
 
 const ConversationPage = () => {
-
+const router = useRouter()
+const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -30,8 +34,28 @@ const ConversationPage = () => {
     const isloading = form.formState.isSubmitting
     
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
-    }
+        try {
+            const userMessages: OpenAI.Chat.ChatCompletionMessage = {
+                role: "user", 
+                content: values.prompt,
+            }
+
+            const newMessages = [...messages, userMessages]
+
+            const response = await axios.post("./api/conversation", { messages: newMessages })
+
+            setMessages(current => [...current, response.data])
+
+            form.reset()
+
+        } catch (error: any) {
+            //TODO: OPEN PRO MODAL
+            console.log(error)
+        } finally {
+            router.refresh()
+        }
+    } 
+    
 
     return (
         <div>
@@ -80,9 +104,18 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    <h3 className="text-lg font-bold">Results</h3>
-                    <div className="bg-gray-100 p-4 rounded-lg">
-                        <p>Results will be shown here</p>
+                    <div className="flex flex-col-reverse gap-y-4">
+                        {messages.map((message) => (
+                            <div key={message.content}> 
+                                <div className="flex justify-end">
+                                    <div className="bg-violet-500 text-white rounded-lg p-2">
+                                        {message.content}
+                                        [ {message.role} ]
+
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

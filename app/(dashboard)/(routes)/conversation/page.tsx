@@ -42,9 +42,11 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
 
             const newMessages = [...messages, userMessages]
 
-            const response = await axios.post("./api/conversation", { messages: newMessages })
+            const response = await axios.post("./api/conversation",
+             { messages: newMessages }
+             )
 
-            setMessages(current => [...current, response.data])
+            setMessages((current) => [...current, userMessages, response.data])
 
             form.reset()
 
@@ -107,11 +109,13 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                     <div className="flex flex-col-reverse gap-y-4">
                         {messages.map((message) => (
                             <div key={message.content}> 
-                                <div className="flex justify-end">
+                                <div className="flex justify-start">
+                                    
                                     <div className="bg-violet-500 text-white rounded-lg p-2">
+                                    <div className=" font-bol text-gray-300 ">
+                                             {message.role === "user" ? "You" : "Aurora Ai"} 
+                                        </div>
                                         {message.content}
-                                        [ {message.role} ]
-
                                     </div>
                                 </div>
                             </div>

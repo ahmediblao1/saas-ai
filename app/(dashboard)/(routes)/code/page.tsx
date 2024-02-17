@@ -136,13 +136,11 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                                 components={{
                                     pre: ({node, ...props}) => (
                                         <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                                            <pre {...props} />
-
+                                        <pre {...props} />
                                         </div>
                                     ), 
                                 code: ({node, ...props}) => (
                                     <code className="bg-black/10 rounded-lg p-1" {...props} />
-                                
                                 )
                                 }}
                                 className="w-full text-sm overflow-hidden leading-7"

@@ -10,7 +10,7 @@ const openai = new OpenAI({
 
 const instractionMessage: OpenAI.Chat.ChatCompletionMessage = {
     role: "system",
-    content: "you are code generator, you must only answer in markdown code snippets. use code comments to explain your code."
+    content: "you are code generator, you must only answer in markdown code snippets. use code comments for explanation."
 
 }
 

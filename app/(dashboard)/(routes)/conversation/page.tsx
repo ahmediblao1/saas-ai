@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import OpenAI from "openai";
+import { Empty } from "@/components/empty";
+import { Loader } from "@/components/loader";
+import { cn } from "@/lib/utils";
 
 
 const ConversationPage = () => {
@@ -106,19 +109,27 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
+                    {isloading && (
+                        <div className="p-8 rounded-lg flex items-center justify-center">
+                            <Loader />
+                        </div>
+                    
+                    )}
+                    {messages.length === 0 && !isloading && (
+                        <div >
+                            <Empty label=" Start a conversation by typing a prompt" />
+                        </div>
+                    )}
                     <div className="flex flex-col-reverse gap-y-4">
                         {messages.map((message) => (
-                            <div key={message.content}> 
-                                <div className="flex justify-start">
-                                    
-                                    <div className="bg-violet-500 text-white rounded-lg p-2">
-                                    <div className=" font-bol text-gray-300 ">
-                                             {message.role === "user" ? "You" : "Aurora Ai"} 
-                                        </div>
-                                        {message.content}
-                                    </div>
-                                </div>
-                            </div>
+                            <div
+                             key={message.content}
+                             className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg",
+                             message.role === "user" ? "bg-violet-500/10 justify-end" : "bg-violet-500/20")}
+                             > 
+                            
+                                {message.content}
+                             </div>
                         ))}
                     </div>
                 </div>

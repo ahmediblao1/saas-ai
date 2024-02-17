@@ -2,7 +2,7 @@
 import axios from "axios";
 import * as z from "zod"
 import { Heading } from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants"
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,9 +17,10 @@ import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
+import ReactMarkdown from "react-markdown";
 
 
-const ConversationPage = () => {
+const CodePage = () => {
 const router = useRouter()
 const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
@@ -47,7 +48,7 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
 
             const newMessages = [...messages, userMessages]
 
-            const response = await axios.post("./api/conversation",
+            const response = await axios.post("./api/code",
              { messages: newMessages }
              )
 
@@ -67,11 +68,11 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
     return (
         <div>
             <Heading 
-            title="Conversation"
-            description="Generate text based on a given prompt"
-            icon={MessageSquare}
-            iconColor= "text-violet-500"
-            bgColor= "bg-violet-500/10"
+            title="Code generation"
+            description="Generate Code using description  of what you want to achieve"
+            icon={Code}
+            iconColor= "text-green-700"
+            bgColor= "bg-green-700/10"
             />
             <div className="px-4 lg:px-8">
                 <div >
@@ -94,7 +95,7 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                                     className="border-0 outline-none focus-visible:ring-0
                                      focus-visible:ring-transparent"
                                      disabled={isloading}
-                                     placeholder="how i can make extra 300$ in a day"
+                                     placeholder="Make an API that takes a name and an email address as inputs and sends back a success flag"
                                      {...field}
                                      />
                                 </FormControl>
@@ -127,12 +128,27 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                             <div
                              key={message.content}
                              className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg",
-                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-violet-400")}
+                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-white")}
                              > 
                             {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                                <p className="text-sm">
+
+                                <ReactMarkdown 
+                                components={{
+                                    pre: ({node, ...props}) => (
+                                        <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                                            <pre {...props} />
+
+                                        </div>
+                                    ), 
+                                code: ({node, ...props}) => (
+                                    <code className="bg-black/10 rounded-lg p-1" {...props} />
+                                
+                                )
+                                }}
+                                className="w-full text-sm overflow-hidden leading-7"
+                                >
                                     {message.content}
-                                </p>
+                                </ReactMarkdown>
                              </div>
                         ))}
                     </div>
@@ -141,4 +157,4 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
         </div>
     );
     }
-export default ConversationPage;
+export default CodePage;

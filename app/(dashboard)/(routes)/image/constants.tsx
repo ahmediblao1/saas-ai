@@ -17,13 +17,9 @@ export const formSchema = z.object({
     { value: "4", label: "4" },
     { value: "5", label: "5" },
     { value: "6", label: "6" },
-    { value: "7", label: "7" },
-    { value: "8", label: "8" },
-    { value: "9", label: "9" },
-    { value: "10", label: "10" },
   ]
 
-  const resolutionOptions = [
+  export const resolutionOptions = [
     { value: "256", label: "256x256" },
     { value: "512", label: "512x512" },
     { value: "1024", label: "1024x1024" },

@@ -2,9 +2,9 @@
 import axios from "axios";
 import * as z from "zod"
 import { Heading } from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { Download, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { formSchema } from "./constants"
+import { amountOptions, resolutionOptions, formSchema } from "./constants"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -15,24 +15,22 @@ import OpenAI from "openai";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
-import { UserAvatar } from "@/components/user-avatar";
-import { BotAvatar } from "@/components/bot-avatar";
+
+import { Select, SelectTrigger, SelectValue, SelectItem, SelectContent  } from "@/components/ui/select";
+import { Card, CardFooter } from "@/components/ui/card";
+import Image from "next/image";
 
 
 const ImagePage = () => {
 const router = useRouter()
-const [messages, setMessages] = useState<string[]>([])
+const [images, setImages] = useState<string[]>([])
 
 const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             prompt: "",
-            // max_tokens: 50,
-            // temperature: 0.7,
-            // top_p: 1,
-            // frequency_penalty: 0,
-            // presence_penalty: 0,
-            // stop_sequence: "",
+            amount: "1",
+            resolution: "512",
         },
     })
 
@@ -41,11 +39,13 @@ const form = useForm<z.infer<typeof formSchema>>({
     
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            
-            const response = await axios.post("./api/conversation")
+            setImages([]) 
+            const response = await axios.post("./api/image", values)
 
+            const urls = response.data.map((image:{url: string}) => image.url)
+
+            setImages(urls)
             form.reset()
-
         } catch (error: any) {
             //TODO: OPEN PRO MODAL
             console.log(error)
@@ -79,18 +79,76 @@ const form = useForm<z.infer<typeof formSchema>>({
                         <FormField
                         name="prompt"
                         render={({ field }) => (
-                            <FormItem className="col-span-12 lg:col-span-10 ">
+                            <FormItem className="col-span-12 lg:col-span-6 ">
                                 <FormControl className="m-0 p-0">
                                     <Input
                                     className="border-0 outline-none focus-visible:ring-0
                                      focus-visible:ring-transparent"
                                      disabled={isloading}
-                                     placeholder="how i can make extra 300$ in a day"
+                                     placeholder="a picture of man with a dog in the park" 
                                      {...field}
                                      />
                                 </FormControl>
                             </FormItem>
                         )}
+                        />
+                        <FormField
+                         control = {form.control}
+                         name="amount"
+                         render={({ field }) => (
+                            <FormItem className="col-span-12 lg:col-span-2">
+                                <Select
+                                    disabled={isloading}
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue defaultValue={field.value} />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {amountOptions.map((option) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                               
+                            </FormItem>
+                         )}
+                            
+                         
+                        />
+                        <FormField
+                         control = {form.control}
+                         name="resolution"
+                         render={({ field }) => (
+                            <FormItem className="col-span-12 lg:col-span-2">
+                                <Select
+                                    disabled={isloading}
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue defaultValue={field.value} />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {resolutionOptions.map((option) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                               
+                            </FormItem>
+                         )}
+                            
+                         
                         />
                         <Button 
                         className="col-span-12 lg:col-span-2 w-full"
@@ -103,22 +161,52 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </div>
                 <div className="space-y-4 mt-4">
                     {isloading && (
-                        <div className="p-8 rounded-lg flex items-center justify-center">
+                        <div className="p-20">
                             <Loader />
                         </div>
                     
                     )}
-                    {messages.length === 0 && !isloading && (
+                    {images.length === 0 && !isloading && (
                         <div >
-                            <Empty label=" Start a conversation by typing a prompt" />
+                            <Empty label=" no images genreted" />
                         </div>
                     )}
-                    <div>
-                        Images will be rendered here
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+                        {images.map((src) => (
+                            <Card
+                            key={src}
+                            className="rounded-lg overflow-hidden"
+                            >
+                                <div className="aspect-w-16 aspect-h-9">
+                                    <Image
+                                     src={src}
+                                    alt="generated Img"
+                                    fill
+                                    className="object-cover" />
+                                </div>
+                                <CardFooter className="p-2">
+                                    {/* <Button 
+                                    className={cn("w-full", "rounded-lg")}
+                                    onClick={() => window.open(src, "_blank")}
+                                    >
+                                        Open
+                                    </Button> */}
+                                    <Button
+                                    onClick={() => window.open(src, "_blank")}
+                                     variant="secondary"
+                                      className="w-full">
+                                      <Download className="h-4 w-4 mr-2" />
+                                       Download
+                                    </Button>
+
+                                </CardFooter>
+
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     );
     }
 export default ImagePage;

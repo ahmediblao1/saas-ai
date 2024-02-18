@@ -21,8 +21,9 @@ import { BotAvatar } from "@/components/bot-avatar";
 
 const ImagePage = () => {
 const router = useRouter()
-const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([])
-    const form = useForm<z.infer<typeof formSchema>>({
+const [messages, setMessages] = useState<string[]>([])
+
+const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             prompt: "",
@@ -40,18 +41,8 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
     
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessages: OpenAI.Chat.ChatCompletionMessage = {
-                role: "user", 
-                content: values.prompt,
-            }
-
-            const newMessages = [...messages, userMessages]
-
-            const response = await axios.post("./api/conversation",
-             { messages: newMessages }
-             )
-
-            setMessages((current) => [...current, userMessages, response.data])
+            
+            const response = await axios.post("./api/conversation")
 
             form.reset()
 
@@ -122,19 +113,8 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                             <Empty label=" Start a conversation by typing a prompt" />
                         </div>
                     )}
-                    <div className="flex flex-col gap-y-4">
-                        {messages.map((message) => (
-                            <div
-                             key={message.content}
-                             className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg",
-                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-violet-400")}
-                             > 
-                            {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                                <p className="text-sm">
-                                    {message.content}
-                                </p>
-                             </div>
-                        ))}
+                    <div>
+                        Images will be rendered here
                     </div>
                 </div>
             </div>

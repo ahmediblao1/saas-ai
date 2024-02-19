@@ -177,7 +177,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                             key={src}
                             className="rounded-lg overflow-hidden"
                             >
-                                <div className="aspect-w-16 aspect-h-9">
+                                <div className="relative aspect-square">
                                     <Image
                                      src={src}
                                     alt="generated Img"
@@ -185,14 +185,8 @@ const form = useForm<z.infer<typeof formSchema>>({
                                     className="object-cover" />
                                 </div>
                                 <CardFooter className="p-2">
-                                    {/* <Button 
-                                    className={cn("w-full", "rounded-lg")}
-                                    onClick={() => window.open(src, "_blank")}
-                                    >
-                                        Open
-                                    </Button> */}
                                     <Button
-                                    onClick={() => window.open(src, "_blank")}
+                                    onClick={() => window.open(src)}
                                      variant="secondary"
                                       className="w-full">
                                       <Download className="h-4 w-4 mr-2" />

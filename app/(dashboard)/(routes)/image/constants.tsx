@@ -11,17 +11,16 @@ export const formSchema = z.object({
   })
 
   export const amountOptions = [ 
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-    { value: "6", label: "6" },
-  ]
+    { value: "1", label: "1 photo" },
+    { value: "2", label: "2 photos" },
+    { value: "3", label: "3 photos" },
+    { value: "4", label: "4 photos" },
+    { value: "5", label: "5 photos" },
+    ]
 
   export const resolutionOptions = [
-    { value: "256", label: "256x256" },
-    { value: "512", label: "512x512" },
-    { value: "1024", label: "1024x1024" },
-    { value: "2048", label: "2048x2048" },
+    { value: "256x256", label: "256x256" },
+    { value: "512x512", label: "512x512" },
+    { value: "1024x1024", label: "1024x1024" },
+    { value: "2048x2048", label: "2048x2048" },
   ]

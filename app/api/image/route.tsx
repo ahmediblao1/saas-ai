@@ -14,7 +14,7 @@ export async function POST(
 try {
     const { userId } = auth()
     const body = await req.json()
-    const { prompt, amount = 1, resolution = 1 } = body
+    const { prompt, amount = 1, resolution = "256x256" } = body
     if(!userId) return new NextResponse( "Unauthorized", { status: 401})
 
     if(!openai.apiKey) return new NextResponse( "OpenAI API Key not found", { status: 400})
@@ -28,7 +28,7 @@ try {
     const response = await  openai.images.generate({
         prompt,
         n: parseInt(amount, 10),
-        size: resolution
+        size: "256x256"
     })
 
     return NextResponse.json(response.data)

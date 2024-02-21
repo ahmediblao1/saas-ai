@@ -40,9 +40,11 @@ const form = useForm<z.infer<typeof formSchema>>({
             setVideo(undefined);
       
             const response = await axios.post('/api/video', values);
+
             console.log(response)
       
             setVideo(response.data[0]);
+
 
             form.reset()
 

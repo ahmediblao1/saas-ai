@@ -32,7 +32,7 @@ try {
     return NextResponse.json(output)
     
 } catch (error) {
-    console.log("[MUISC_ERROR] ", error)
+    console.log("[CONVERSATION_ERROR] ", error)
     return new NextResponse( "Internal Server Error", { status: 500})
 }
 }

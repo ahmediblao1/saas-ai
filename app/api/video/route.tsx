@@ -2,6 +2,9 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import Replicate from "replicate";
+import { increaseApiLimit, checkApiLimit } from '@/lib/api.limit';
+
+
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -18,6 +21,10 @@ try {
 
 
     if(!prompt) return new NextResponse( "Messages are required", { status: 400})
+
+    const freetrial = await checkApiLimit()
+
+    if(!freetrial) return new NextResponse( "API Limit Exceeded", { status: 403})
 
     const output = await replicate.run(
       "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
@@ -38,7 +45,9 @@ try {
         }
       }
     );
-    console.log(output);
+
+    await increaseApiLimit()
+    
     return NextResponse.json(output)
     
 } catch (error) {

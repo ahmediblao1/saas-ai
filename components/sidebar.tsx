@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import path from 'path'
+import { FreeCounter } from './free-counter'
 
 const montserrat = Montserrat(
     { weight: '600',
@@ -67,7 +68,6 @@ interface SidebarProps {
 
 }
 
-
 const Sidebar = ({
     apiLimitCount = 0
 }: SidebarProps ) => {
@@ -98,6 +98,9 @@ const Sidebar = ({
             ))}
             </div>
            </div>
+           <FreeCounter
+           apiLimitCount={apiLimitCount}
+           />
         </div>
     )
 }

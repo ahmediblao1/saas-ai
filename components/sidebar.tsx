@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from '@/lib/utils'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, Settings, VideoIcon } from 'lucide-react'
+import { Code, HomeIcon, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, Settings, VideoIcon } from 'lucide-react'
 import { Montserrat } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -53,6 +53,11 @@ const routes = [
         label: 'Settings',
         icon: Settings,
         href: '/settings',
+    },
+    {
+        label: 'HOME',
+        icon: HomeIcon,
+        href: '/home',
     },
     
 ]

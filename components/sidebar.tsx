@@ -55,11 +55,11 @@ const routes = [
         icon: Settings,
         href: '/settings',
     },
-    {
-        label: 'HOME',
-        icon: HomeIcon,
-        href: '/home',
-    },
+    // {
+    //     label: 'HOME',
+    //     icon: HomeIcon,
+    //     href: '/home',
+    // },
     
 ]
     

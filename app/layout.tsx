@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "coderx ",
-  description: "ai platform",
+  title: "Aurora AI ",
+  description: " A simple AI tool to generate images, videos, music, and more.",
 };
 
 export default function RootLayout({

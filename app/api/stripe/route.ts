@@ -56,6 +56,8 @@ return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
         metadata: { userId: userId }
     })
 
+return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
+})
 
 } catch (error) {
     console.error("[ STRIPE_ERROR]", error)

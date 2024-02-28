@@ -24,9 +24,37 @@ try {
         const stripeSession = await stripe.billingPortal.sessions.create({
             customer: userSubscription.stripeCustomerId,
             return_url: settinsgUrl
-        })
+        });
+
+return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
+    headers: { "Content-Type": "application/json" }
+})
+
     }
 
+    const stripeSession = await stripe.checkout.sessions.create({
+        success_url: settinsgUrl,
+        cancel_url: settinsgUrl,
+        payment_method_types: ["card"],
+        mode: "setup",
+        billing_address_collection: "auto",
+        customer_email: user.emailAddresses[0].emailAddress,
+        line_items: [
+            {
+                price_data: {
+                    currency: "usd",
+                    product_data: {
+                        name: "Aurora Pro",
+                        description: "unlimited access to Aurora Pro features"
+                    },
+                    unit_amount: 2000,
+                    recurring: { interval: "month" }
+                },
+                quantity: 1
+            }
+        ],
+        metadata: { userId: userId }
+    })
 
 
 } catch (error) {

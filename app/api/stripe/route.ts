@@ -11,6 +11,7 @@ export async function GET(){
 try {
     
 } catch (error) {
-    console.error(error)
+    console.error("[ STRIPE_ERROR]", error)
+    return new NextResponse("Internal Server Error", { status: 500 })
 }
 }

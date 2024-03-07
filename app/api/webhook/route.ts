@@ -54,5 +54,6 @@ if(event.type === "invoice.payment_succeeded"){
     })
 }
 
+return new NextResponse(null, { status: 200 })
 }
  

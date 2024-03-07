@@ -27,7 +27,17 @@ if(event.type === "checkout.session.completed") {
     if(!session?.metadata?.userId) {
         return new NextResponse("Invalid Session", { status: 400 })
     }
-}
 
+await prismadb.userSubscription.create({
+    data: {
+        userId: session.metadata.userId,
+        stripeSubscriptionId: subscription.id,
+        stripeCustomerId: subscription.customer as string,
+        stripePriceId: subscription.items.data[0].price.id,
+        stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+    },
+})
+
+}
 }
  

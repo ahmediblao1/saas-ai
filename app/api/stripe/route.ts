@@ -45,7 +45,7 @@ return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
 
 return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
 })
-
+/// error
 } catch (error) {
     console.error("[ STRIPE_ERROR]", error)
     return new NextResponse("Internal Server Error", { status: 500 })

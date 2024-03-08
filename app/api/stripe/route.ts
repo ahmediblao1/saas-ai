@@ -39,20 +39,7 @@ return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
         mode: "setup",
         billing_address_collection: "auto",
         customer_email: user.emailAddresses[0].emailAddress,
-        line_items: [
-            {
-                price_data: {
-                    currency: "usd",
-                    product_data: {
-                        name: "Aurora Pro",
-                        description: "unlimited access to Aurora Pro features"
-                    },
-                    unit_amount: 2000,
-                    recurring: { interval: "month" }
-                },
-                quantity: 1
-            }
-        ],
+        line_items: [],
         metadata: { userId: userId }
     })
 

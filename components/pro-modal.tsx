@@ -103,6 +103,7 @@ return(
         </DialogHeader>
         <DialogFooter>
                 <Button
+                onClick={onSubscribe}
                  variant="premium"
                  size="lg"
                  className="w-full"

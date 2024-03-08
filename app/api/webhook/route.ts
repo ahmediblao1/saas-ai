@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     
 
     try {
-        event = stripe.webhooks.constructEvent(body, siqnature, process.env.STRIPE_WEBHOOK_SECRET as string)
+        event = stripe.webhooks.constructEvent(body, siqnature, process.env.STRIPE_WEBHOOK_SECRET!)
     }
     catch (err: any) {
         return new NextResponse(`Webhook Error, ${err.message}` ,{ status: 400 })
@@ -41,7 +41,7 @@ await prismadb.userSubscription.create({
 }
 
 if(event.type === "invoice.payment_succeeded"){
-    const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
+    const subscription = await stripe.subscriptions.retrieve(session.subscription! as string)
 
     await prismadb.userSubscription.update({
         where: {

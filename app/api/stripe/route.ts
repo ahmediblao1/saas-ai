@@ -36,16 +36,29 @@ return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
         success_url: settinsgUrl,
         cancel_url: settinsgUrl,
         payment_method_types: ["card"],
-        mode: "setup",
+        mode: "subscription",
         billing_address_collection: "auto",
         customer_email: user.emailAddresses[0].emailAddress,
-        line_items: [],
+        line_items: [
+            {
+                price_data: {
+                    currency: "usd",
+                    product_data: {
+                        name: "Aurora Pro",
+                        description: "unlimited access to Aurora Pro features"
+                    },
+                    unit_amount: 2000,
+                    recurring: { interval: "month" }
+                },
+                quantity: 1
+            }
+        ],
         metadata: { userId: userId }
     })
 
 return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
 })
-/// error
+
 } catch (error) {
     console.error("[ STRIPE_ERROR]", error)
     return new NextResponse("Internal Server Error", { status: 500 })

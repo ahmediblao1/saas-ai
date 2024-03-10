@@ -14,7 +14,7 @@ const TextRevealCardPreview =() => {
         revealText="I know the chemistry "
       >
         <TextRevealCardTitle>
-          Sometimes, you just need to see it.
+          Sometimes, you just need to see it. Ahmed iblao
         </TextRevealCardTitle>
         <TextRevealCardDescription>
           You know the business. I know the chemistry.Let&apos;s make some magic

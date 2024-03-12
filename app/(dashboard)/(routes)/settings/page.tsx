@@ -1,4 +1,5 @@
 import { Heading } from "@/components/heading";
+import { SubscriptionButton } from "@/components/subscription-button";
 import { checksubscription } from "@/lib/subscription";
 import { Settings } from "lucide-react";
 
@@ -23,6 +24,7 @@ const isPro = await checksubscription();
             <div className="text-muted-foreground text-sm">
                 {isPro ? "You are on the Pro user" : "You are a on the Free Plan"}
             </div>
+            <SubscriptionButton isPro={isPro} />
          </div>
         </div>
     );

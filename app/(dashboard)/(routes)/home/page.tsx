@@ -62,9 +62,29 @@
 import React from "react";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 
+<<<<<<< HEAD
 const HeroParallaxDemo = () => {
 
   return <HeroParallax products={products} />;
+=======
+const TextRevealCardPreview =() => {
+  return (
+    <div className="flex items-center justify-center bg-[#000000] h-[40rem] rounded-2xl w-full">
+      <TextRevealCard
+        text="You know the business"
+        revealText="I know the chemistry "
+      >
+        <TextRevealCardTitle>
+          Sometimes, you just need to see it. Ahmed iblao
+        </TextRevealCardTitle>
+        <TextRevealCardDescription>
+          You know the business. I know the chemistry.Let&apos;s make some magic
+          together.
+        </TextRevealCardDescription>
+      </TextRevealCard>
+    </div>
+  );
+>>>>>>> 135b3aa627d484f38b5378cb310538085d5f6261
 }
 export const products = [
   {
@@ -86,6 +106,7 @@ export const products = [
       "https://aceternity.com/images/products/thumbnails/new/rogue.png",
   },
 
+<<<<<<< HEAD
   {
     title: "Editorially",
     link: "https://editorially.org",
@@ -163,3 +184,6 @@ export const products = [
 ];
 
 export default HeroParallaxDemo;
+=======
+export default TextRevealCardPreview;
+>>>>>>> 135b3aa627d484f38b5378cb310538085d5f6261

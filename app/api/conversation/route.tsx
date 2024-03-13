@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from "openai";
 
 import { increaseApiLimit, checkApiLimit } from '@/lib/api.limit';
+import { checksubscription } from '@/lib/subscription';
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -23,8 +24,9 @@ try {
     if(!messages) return new NextResponse( "Messages are required", { status: 400})
 
     const freetrial = await checkApiLimit()
+    const isPro = await checksubscription()
 
-    if(!freetrial) return new NextResponse( "API Limit Exceeded", { status: 403})
+    if(!freetrial && !isPro) return new NextResponse( "API Limit Exceeded", { status: 403})
 
 
     const response = await  openai.chat.completions.create({
@@ -32,9 +34,9 @@ try {
         messages,
     })
 
-
+if(!isPro){
     await increaseApiLimit()
-
+}
     return NextResponse.json(response.choices[0].message , { status: 200})
     
 } catch (error) {

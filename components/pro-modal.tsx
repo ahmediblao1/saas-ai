@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
 import axios from "axios"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 
 const tools = [
@@ -62,7 +63,7 @@ export const ProModal = () => {
           const response = await axios.get("/api/stripe")
           window.location.href = response.data.url
         } catch (error) {
-          console.error(error, "Stripe client error")
+          toast.error("An error occurred. Please try again.")
         } finally {
           setLoading(false)
         }

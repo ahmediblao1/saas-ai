@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
 import { ModalProvider } from "@/components/modal-provider";
+import { ToasterProvider } from "@/components/toaster-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 

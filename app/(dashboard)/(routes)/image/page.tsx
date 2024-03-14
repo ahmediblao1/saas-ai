@@ -20,6 +20,7 @@ import { Select, SelectTrigger, SelectValue, SelectItem, SelectContent  } from "
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { useProModal } from "@/hooks/use-pro-modal";
+import toast from "react-hot-toast";
 
 
 const ImagePage = () => {
@@ -51,7 +52,9 @@ const form = useForm<z.infer<typeof formSchema>>({
         } catch (error: any) {
             if(error?.response?.status === 403) {
                 proModal.onOpen()
-            }
+            }else {
+                toast.error("An error occurred, please try again")
+               }
             
         } finally {
             router.refresh()

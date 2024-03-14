@@ -103,6 +103,7 @@ return(
         </DialogHeader>
         <DialogFooter>
                 <Button
+                disabled={loading}
                 onClick={onSubscribe}
                  variant="premium"
                  size="lg"

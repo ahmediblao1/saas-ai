@@ -81,7 +81,7 @@ const Sidebar = ({
                 <div className='relative w-8 h-8 mr-4'>
                <Image src="/logo.png" fill objectFit="contain" alt="logo" />
                 </div>
-                <h1 className={cn("text-2xl font-bold", montserrat.className)}>Aurora</h1>
+                <h1 className={cn("text-2xl font-bold", montserrat.className)}>Glint</h1>
             </Link>
             <div className='space-y-1'>
             {routes.map((route, index) => (

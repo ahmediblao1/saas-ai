@@ -44,8 +44,8 @@ return new NextResponse(JSON.stringify({ url: stripeSession.url }), {
                 price_data: {
                     currency: "usd",
                     product_data: {
-                        name: "Aurora Pro",
-                        description: "unlimited access to Aurora Pro features"
+                        name: "Glint Pro",
+                        description: "unlimited access to Glint Pro features"
                     },
                     unit_amount: 2000,
                     recurring: { interval: "month" }

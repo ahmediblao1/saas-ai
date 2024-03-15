@@ -11,7 +11,7 @@ export const Loader = () => {
         />
       </div>
       <p className="text-muted-foreground text-sm">
-        Aurora is thinking...
+      Glint is thinking...
       </p>
     </div>
   );

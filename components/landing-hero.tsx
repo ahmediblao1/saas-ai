@@ -12,7 +12,7 @@ export const LandingHero = () => {
   return (
     <div className="text-white font-bold py-36 text-center space-y-5">
       <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl space-y-5 font-extrabold">
-        <h1>Unleash Your Creativity with Aurora!</h1>
+        <h1>Unleash Your Creativity with Glint AI!</h1>
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
             options={{

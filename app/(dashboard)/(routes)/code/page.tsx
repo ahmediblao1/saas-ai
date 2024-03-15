@@ -45,7 +45,7 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const userMessages: OpenAI.Chat.ChatCompletionMessage = {
-                role: "user", 
+                role: "assistant", 
                 content: values.prompt,
             }
 

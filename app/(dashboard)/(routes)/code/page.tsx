@@ -38,7 +38,8 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
             // stop_sequence: "",
         },
     })
- 
+
+
     const isloading = form.formState.isSubmitting
     
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -134,9 +135,9 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                             <div
                              key={message.content}
                              className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg",
-                             message.role === "assistant" ? "bg-muted border border-black/10 " : "bg-green-700/10")}
+                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-green-700/10")}
                              > 
-                            {message.role === "assistant" ? <BotAvatar /> :  <UserAvatar />}
+                            {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
 
                                 <ReactMarkdown 
                                 components={{

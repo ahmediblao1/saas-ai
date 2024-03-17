@@ -44,7 +44,7 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             
-            const userMessages: OpenAI.Chat.ChatCompletionMessage = {
+            const userMessages: OpenAI.Chat.ChatCompletionUserMessageParam = {
                 role: "user", 
                 content: values.prompt,
             }
@@ -135,9 +135,9 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                             <div
                              key={message.content}
                              className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg",
-                             message.role === "assistant" ? "bg-muted border border-black/10 " : "bg-violet-300")}
+                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-violet-300")}
                              > 
-                            {message.role === "assistant" ? <BotAvatar /> :  <UserAvatar />}
+                            {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                                 <p className="text-sm">
                                     {message.content}
                                 </p>

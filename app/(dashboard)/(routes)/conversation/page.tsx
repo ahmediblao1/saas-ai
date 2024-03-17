@@ -135,9 +135,9 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
                             <div
                              key={message.content}
                              className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg",
-                             message.role === "user" ? "bg-muted border border-black/10 " : "bg-violet-300")}
+                             message.role === "assistant" ? "bg-muted border border-black/10 " : "bg-violet-300")}
                              > 
-                            {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                            {message.role === "assistant" ? <BotAvatar /> : <UserAvatar />}
                                 <p className="text-sm">
                                     {message.content}
                                 </p>

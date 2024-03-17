@@ -38,16 +38,12 @@ const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessage[]>([]
             // stop_sequence: "",
         },
     })
-    type MyChatCompletionMessageRole = "function" | "assistant" | "user" | "system" | "tool";
-    interface MyChatCompletionMessage extends Omit<OpenAI.Chat.ChatCompletionMessage, 'role'> {
-      role: MyChatCompletionMessageRole;
-    }
-
+ 
     const isloading = form.formState.isSubmitting
     
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessages: OpenAI.Chat.ChatCompletionMessage = {
+            const userMessages: OpenAI.Chat.ChatCompletionUserMessageParam = {
                 role: "user", 
                 content: values.prompt,
             }
